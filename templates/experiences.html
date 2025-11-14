@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <section class="page-content">
+        <h2>My Experience</h2>
+
+        <div class="experience-list">
+            <!-- 
+              Same as the projects page, we use loop.index
+              to power the staggered animation in the CSS.
+            -->
+            {% for job in experiences %}
+                <div class="experience-item" style="--animation-order: {{ loop.index }};">
+                    <h3>{{ job.role }}</h3>
+                    <h4>{{ job.company }} <span class="duration">({{ job.duration }})</span></h4>
+                    <p>{{ job.description }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

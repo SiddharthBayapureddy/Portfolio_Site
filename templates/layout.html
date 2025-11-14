@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- UPDATED: Added your name -->
+    <title>Siddharth Bayapureddy - Portfolio</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- NEW: This is the spotlight element -->
+    <div class="spotlight"></div>
+    
+    <!-- 
+      UPDATED STRUCTURE:
+      The header is now full-width and floats.
+    -->
+    <header>
+        <!-- The nav now acts as the container -->
+        <nav class="container">
+            <!-- UPDATED: Added your name -->
+            <a href="{{ url_for('index') }}" class="nav-logo">Siddharth Bayapureddy</a>
+            <ul>
+                <li><a href="{{ url_for('index') }}">About</a></li>
+                <!-- THE FIX: Was 'urlG_for', now 'url_for' -->
+                <li><a href="{{ url_for('projects_page') }}">Projects</a></li>
+                <li><a href="{{ url_for('experience_page') }}">Experience</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 
+      The main content and footer are
+      wrapped in their own container.
+    -->
+    <div class="container">
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer>
+            <!-- UPDATED: Added your name -->
+            <p>&copy; 2025 Siddharth Bayapureddy. Built with Flask.</p>
+        </footer>
+    </div>
+
+    
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    
+    <!-- 
+      This block is for page-specific scripts (like index.html's typing)
+    -->
+    {% block scripts %}{% endblock %}
+
+    <!-- 
+      THE FIX: The spotlight script is now *outside* the block,
+      so it loads on EVERY page and doesn't conflict.
+    -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const spotlight = document.querySelector('.spotlight');
+            
+            // Only run if the spotlight element exists
+            if (spotlight) {
+                window.addEventListener('mousemove', (e) => {
+                    // We use requestAnimationFrame for smooth animation
+                    requestAnimationFrame(() => {
+                        // Update the CSS custom properties
+                        // e.pageX and e.pageY give us the mouse position
+                        spotlight.style.setProperty('--x', e.pageX + 'px');
+                        spotlight.style.setProperty('--y', e.pageY + 'px');
+                    });
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

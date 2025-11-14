@@ -1,0 +1,76 @@
+{
+  "about_me": 
+    {
+        "name": "Siddharth Bayapureddy",
+        "title": "Sophomore in Computer Science Major at BITS Pilani, Hyderabad",
+        "bio" : "I'm a Tech Enthusiat, passionate about Machine Learning/Deep Learning and AI. Also a developer"
+    },
+
+
+  "social_media": [
+    {
+        "name": "LinkedIn",
+        "url" : "https://www.linkedin.com/in/siddharth-bayapureddy/"
+    },
+
+    {
+        "name" : "GitHub",
+        "url" : "https://github.com/SiddharthBayapureddy"
+    },
+
+    {
+        "name" : "Instagram",
+        "url" : "https://www.instagram.com/siddharth.b___/"
+    }
+  ],
+
+
+  "experiences": [
+    {
+        "role": "Student",
+        "company": "BITS Pilani, Hyderabad Campus",
+        "duration": "2024 - Present",
+        "description": "CS Major, pursuing B.E Computer Science with 9.1 CGPA",
+        "link": "https://www.bits-pilani.ac.in/hyderabad/"
+    },
+
+    {
+      "role": "Member - Generative AI",
+      "company": "ACM BPHC",
+      "duration": "Sep,2025 - Present",
+      "description": "Collaborating with team members, working on projects involving Deep Learning, Generative AI etc.",
+      "link" : "https://acmbphc.in/"
+    },
+
+    {
+      "role": " Member - Machine Learning",
+      "company": "ACM BPHC",
+      "duration": "Sep,2025 - Present",
+      "description": "Collaborating with peers on projects in Machine Learning, Deep Learning and OpenCV",
+      "link" : "https://acmbphc.in/"
+    }
+    
+  ],
+
+  
+  "projects": [
+    {
+      "title": "GAN Model from Scratch",
+      "description": "A DCGAN model built from scratch following the conventional architecture, trained on MNIST data.",
+      "tech": ["Python", "PyTorch", "Jupyter Notebooks", "Deep Learning"],
+      "url": "https://github.com/SiddharthBayapureddy/GAN_from_Scratch"
+    },
+    {
+      "title": "Live-MART",
+      "description": "An E-Commerce website streamlining supply chain for Customers, Retailers and Wholesalers.",
+      "tech": ["Python", "FastAPI", "SQL-Lite" , "HTML/CSS"],
+      "url": "https://github.com/SiddharthBayapureddy/Live-MART"
+    },
+    {
+      "title": "Molte - Personal Chatbot",
+      "description": "A multi-persona chatbot with conversation history tracking, and minimal chatbot UI. Check out several different personas available.",
+      "tech": ["Python", "LangChain", "Grok", "Streamlit"],
+      "url": "https://github.com/SiddharthBayapureddy/Molte"
+    }
+  ]
+}
