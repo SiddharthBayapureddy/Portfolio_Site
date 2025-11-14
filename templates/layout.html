@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- UPDATED: Added your name -->
     <title>Siddharth Bayapureddy - Portfolio</title>
     
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -13,71 +12,107 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-    <!-- NEW: This is the spotlight element -->
     <div class="spotlight"></div>
+    <div class="noise-overlay"></div>
     
-    <!-- 
-      UPDATED STRUCTURE:
-      The header is now full-width and floats.
-    -->
+    <!-- UPDATED: Added whitish grid -->
+    <div class="grid-overlay"></div>
+    
+    <div id="tsparticles"></div>
+    
     <header>
-        <!-- The nav now acts as the container -->
         <nav class="container">
-            <!-- UPDATED: Added your name -->
-            <a href="{{ url_for('index') }}" class="nav-logo">Siddharth Bayapureddy</a>
+            <!-- UPDATED: Added logo -->
+            <a href="{{ url_for('index') }}#about" class="nav-logo">
+                <img src="{{ url_for('static', filename='images/moon.jpg') }}" alt="Logo" class="nav-logo-img">
+                <span>Repoir</span>
+            </a>
             <ul>
-                <li><a href="{{ url_for('index') }}">About</a></li>
-                <!-- THE FIX: Was 'urlG_for', now 'url_for' -->
-                <li><a href="{{ url_for('projects_page') }}">Projects</a></li>
-                <li><a href="{{ url_for('experience_page') }}">Experience</a></li>
+                <li><a href="{{ url_for('index') }}#about">About</a></li>
+                <li><a href="{{ url_for('index') }}#projects">Projects</a></li>
+                <li><a href="{{ url_for('index') }}#experience">Experience</a></li>
+                <!-- NEW: Link to the Contact Page -->
+                <li><a href="{{ url_for('contact') }}">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- 
-      The main content and footer are
-      wrapped in their own container.
-    -->
     <div class="container">
         <main>
             {% block content %}{% endblock %}
         </main>
 
         <footer>
-            <!-- UPDATED: Added your name -->
-            <p>&copy; 2025 Siddharth Bayapureddy. Built with Flask.</p>
+            <p>&copy; Siddharth 2025.</p>
         </footer>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2.12.0/tsparticles.slim.bundle.min.js"></script>
     
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
     
-    <!-- 
-      This block is for page-specific scripts (like index.html's typing)
-    -->
     {% block scripts %}{% endblock %}
 
-    <!-- 
-      THE FIX: The spotlight script is now *outside* the block,
-      so it loads on EVERY page and doesn't conflict.
-    -->
     <script>
+        // Mouse-follow Spotlight Script
         document.addEventListener('DOMContentLoaded', () => {
             const spotlight = document.querySelector('.spotlight');
-            
-            // Only run if the spotlight element exists
             if (spotlight) {
                 window.addEventListener('mousemove', (e) => {
-                    // We use requestAnimationFrame for smooth animation
                     requestAnimationFrame(() => {
-                        // Update the CSS custom properties
-                        // e.pageX and e.pageY give us the mouse position
                         spotlight.style.setProperty('--x', e.pageX + 'px');
                         spotlight.style.setProperty('--y', e.pageY + 'px');
                     });
                 });
             }
+        });
+
+        // tsParticles Initialization Script
+        document.addEventListener('DOMContentLoaded', () => {
+            (async () => {
+                await tsParticles.load("tsparticles", {
+                    fullScreen: { enable: true, zIndex: -3 },
+                    particles: {
+                        number: { value: 60, density: { enable: true, value_area: 800 } },
+                        color: { value: "#00bfa5" },
+                        shape: { type: "circle" },
+                        opacity: {
+                            value: 0.5,
+                            random: true,
+                            anim: { enable: true, speed: 0.5, opacity_min: 0.1, sync: false }
+                        },
+                        size: { value: 2, random: true, anim: { enable: false } },
+                        links: {
+                            enable: true,
+                            distance: 120,
+                            color: "#00bfa5",
+                            opacity: 0.2,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: 1,
+                            direction: "top",
+                            straight: true,
+                            out_mode: "out",
+                            bounce: false
+                        }
+                    },
+                    interactivity: {
+                        detect_on: "window",
+                        events: {
+                            onHover: { enable: true, mode: "bubble" },
+                            onClick: { enable: true, mode: "push" },
+                            resize: true
+                        },
+                        modes: {
+                            bubble: { distance: 200, size: 4, duration: 2, opacity: 0.8 },
+                            push: { quantity: 4 }
+                        }
+                    },
+                    detectRetina: true
+                });
+            })();
         });
     </script>
 
