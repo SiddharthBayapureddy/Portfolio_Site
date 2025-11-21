@@ -59,19 +59,40 @@
       "title": "GAN Model from Scratch",
       "description": "A DCGAN model built from scratch following the conventional architecture, trained on MNIST data.",
       "tech": ["Python", "PyTorch", "Jupyter Notebooks", "Deep Learning"],
-      "url": "https://github.com/SiddharthBayapureddy/GAN_from_Scratch"
+      "url": "https://github.com/SiddharthBayapureddy/GAN_from_Scratch",
+      "image": "/static/project_images/gan_from_scratch.png"
     },
     {
       "title": "Live-MART",
       "description": "An E-Commerce website streamlining supply chain for Customers, Retailers and Wholesalers.",
       "tech": ["Python", "FastAPI", "SQL-Lite" , "HTML/CSS"],
-      "url": "https://github.com/SiddharthBayapureddy/Live-MART"
+      "url": "https://github.com/SiddharthBayapureddy/Live-MART",
+      "image" : "/static/project_images/livemart.png"
     },
     {
       "title": "Molte - Personal Chatbot",
       "description": "A multi-persona chatbot with conversation history tracking, and minimal chatbot UI. Check out several different personas available.",
       "tech": ["Python", "LangChain", "Grok", "Streamlit"],
-      "url": "https://github.com/SiddharthBayapureddy/Molte"
-    }
+      "url": "https://github.com/SiddharthBayapureddy/Molte",
+      "image" : "/static/project_images/molte.png"
+
+    },
+
+    {
+      "title": "Squirl",
+      "description": "A simple, quick website to Shorten URLs and generate QR Codes instantly",
+      "tech": ["Python", "Flask"],
+      "url": "https://github.com/SiddharthBayapureddy/Squirl",
+      "image" : "/static/project_images/squirl.png"
+    },
+    {
+      "title": "Repo Profiler",
+      "description": "A web app to summarize public GitHub Repos, dependencies and Health reports, along with an AI assisted summary",
+      "tech":["Python" ,"FastAPI" , "GitHub API" , "Gemini" ],
+      "url" : "https://github.com/SiddharthBayapureddy/repo-profiler",
+      "image" : "/static/project_images/repoprofiler.png"
+     }
+
+
   ]
 }

@@ -50,7 +50,7 @@
             {% for project in projects %}
                 <div class="project-card" style="--animation-order: {{ loop.index }};">
                     <div class="project-image">
-                        <img src="{{ project.image_url | default('https://via.placeholder.com/800x600.png?text=Project+Image', true) }}" alt="{{ project.title }} thumbnail">
+                        <img src="{{ project.image | default('https://via.placeholder.com/800x600.png?text=Project+Image', true) }}" alt="{{ project.title }} thumbnail">
                     </div>
                     <div class="project-content">
                         <h3>{{ project.title }}</h3>

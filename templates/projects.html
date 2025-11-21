@@ -1,26 +1,35 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    <section class="page-content">
-        <h2>My Projects</h2>
-        
-        <div class="project-list">
-            <!-- 
-              We use loop.index to create a custom CSS property.
-              This allows the CSS to stagger the animations.
-            -->
-            {% for project in projects %}
-                <div class="project-card" style="--animation-order: {{ loop.index }};">
-                    <h3>{{ project.title }}</h3>
-                    <p>{{ project.description }}</p>
-                    <div class="tech-tags">
-                        {% for tech in project.tech %}
-                            <span>{{ tech }}</span>
-                        {% endfor %}
-                    </div>
-                    <a href="{{ project.url }}" class="project-link" target="_blank">View Project &rarr;</a>
+<section class="page-content">
+    <h2>My Projects</h2>
+
+    <div class="project-list">
+
+        {% for project in projects %}
+            <div class="project-card" style="--animation-order: {{ loop.index }};">
+
+                <!-- Project Image -->
+                <img src="{{ project.image }}" 
+                     alt="{{ project.title }}" 
+                     class="project-image">
+
+                <h3>{{ project.title }}</h3>
+                <p>{{ project.description }}</p>
+
+                <div class="tech-tags">
+                    {% for tech in project.tech %}
+                        <span>{{ tech }}</span>
+                    {% endfor %}
                 </div>
-            {% endfor %}
-        </div>
-    </section>
+
+                <a href="{{ project.url }}" class="project-link" target="_blank">
+                    View Project →
+                </a>
+
+            </div>
+        {% endfor %}
+
+    </div>
+</section>
 {% endblock %}
