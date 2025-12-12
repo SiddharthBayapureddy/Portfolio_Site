@@ -7,6 +7,22 @@
         
     },
 
+  "skills": [
+    "Python",
+    "Deep Learning", 
+    "PyTorch",
+    "Generative AI",
+    "Flask",
+    "FastAPI",
+    "JavaScript",
+    "SQL"
+  ],
+
+  "quote": {
+    "text": "The best way to predict the future is to invent it.",
+    "author": "Alan Kay"
+  },
+
 
   "social_media": [
     {

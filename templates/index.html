@@ -1,65 +1,79 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    <section class="page-content hero-section" id="about">
-        <div class="hero-top">
-            <h1 id="typed-text"></h1>
-        </div>
-        <div class="hero-bottom-grid">
-            <div class="hero-bio">
-                <p class="bio">
-                    {{ about.bio }}
-                </p>
+    <section class="hero-section" id="about">
+        <div class="hero-grid">
+            <div class="hero-text">
+                <div class="hero-top">
+                    <!-- Typed Text -->
+                    <h1 id="typed-text"></h1>
+                </div>
+                
+                <div class="hero-bio-container">
+                    <div class="hero-bio">
+                        <p>
+                            {{ about.bio }}
+                        </p>
+                        <p class="hero-connect">
+                            <span style="font-weight: 600; color: var(--text-primary);">Connect:</span>
+                            {% for social in social_media %}
+                                <a href="{{ social.url }}" target="_blank" style="margin-right: 1rem;">{{ social.name }}</a>
+                            {% endfor %}
+                        </p>
+                    </div>
+                </div>
             </div>
-            <aside class="hero-socials">
-                <h3>Connect</h3>
-                <ul>
-                    {% for social in social_media %}
-                        <li>
-                            <a href="{{ social.url }}" target="_blank" class="social-link">
-                                
-                                <!-- LinkedIn Logo -->
-                                {% if social.name == 'LinkedIn' %}
-                                <svg class="social-icon" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                                
-                                <!-- GitHub Logo -->
-                                {% elif social.name == 'GitHub' %}
-                                <svg class="social-icon" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-                                
-                                <!-- NEW: Instagram Logo -->
-                                {% elif social.name == 'Instagram' %}
-                                <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.17.053 1.805.248 2.227.415.463.182.79.373 1.14.723.35.35.54.677.724 1.14.166.422.36 1.057.413 2.227.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.053 1.17-.248 1.805-.415 2.227a2.96 2.96 0 0 1-.723 1.14c-.35.35-.677.54-1.14.723-.422.167-1.057.36-2.227.413-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.053-1.805-.248-2.227-.415a2.96 2.96 0 0 1-1.14-.723c-.35-.35-.54-.677-.723-1.14-.167-.422-.36-1.057-.413-2.227-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.053-1.17.248 1.805.413 2.227.18-.463.37-.79.724-1.14.35-.35.677-.54 1.14-.723.422-.167 1.057-.36 2.227-.413C8.416 2.175 8.796 2.163 12 2.163zm0 1.62c-3.255 0-3.658.013-4.943.073-1.09.05-1.57.23-1.928.375-.372.15-.636.32-.9.583s-.434.527-.582.9c-.145.358-.326.838-.375 1.928C4.24 8.342 4.228 8.745 4.228 12s.013 3.658.073 4.943c.05 1.09.23 1.57.375 1.928.15.372.32.636.583.9.263.263.527.434.9.582.358.145.838.326 1.928.375 1.285.06 1.688.073 4.943.073s3.658-.013 4.943-.073c1.09-.05 1.57-.23 1.928-.375.372-.15.636.32.9-.583.263-.263.434.527.582.9.145.358.326.838.375-1.928.06-1.285.073-1.688.073-4.943s-.013-3.658-.073-4.943c-.05-1.09-.23-1.57-.375-1.928-.15-.372-.32-.636-.583-.9-.263-.263-.527-.434-.9-.582-.358-.145-.838-.326-1.928-.375C15.658 3.8 15.255 3.783 12 3.783zM12 9.19a2.81 2.81 0 1 0 0 5.62 2.81 2.81 0 0 0 0-5.62zm0 4.23a1.42 1.42 0 1 1 0-2.84 1.42 1.42 0 0 1 0 2.84zm4.61-4.88a.67.67 0 1 0 0 1.34.67.67 0 0 0 0-1.34z"/></svg>
-                                
-                                <!-- Fallback (the circle you saw) -->
-                                {% else %}
-                                <svg class="social-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
-                                {% endif %}
-                                <span>{{ social.name }}</span>
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </aside>
+
+            <div class="hero-visual">
+                <!-- Animation Container behind image -->
+                <div class="hero-animation">
+                    <canvas id="organic-canvas"></canvas>
+                </div>
+                
+                <!-- Sophisticated Minimal Black Hole -->
+                <div class="black-hole-container">
+                    <canvas id="bh-particles"></canvas>
+                    <div class="black-hole-system" id="blackHole">
+                        <div class="black-hole-core"></div>
+                        <!-- Accretion Disks / Event Horizon Rings -->
+                        <div class="accretion-disk disk-1"></div>
+                        <div class="accretion-disk disk-2"></div>
+                        <div class="accretion-disk disk-3"></div>
+                        <!-- Photon Ring (The bright ring right at the edge) -->
+                        <div class="photon-ring"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section class="page-content" id="projects">
-        <h2>My Projects</h2>
+    <!-- Skills Section -->
+    <section class="skills-section">
+        <h3>Technical Expertise</h3>
+        <div class="skills-grid">
+            {% for skill in skills %}
+                <span class="skill-tag">{{ skill }}</span>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2>Selected Work</h2>
         
         <div class="project-list">
             {% for project in projects %}
-                <div class="project-card" style="--animation-order: {{ loop.index }};">
+                <div class="project-card">
                     <div class="project-image">
-                        <img src="{{ project.image | default('https://via.placeholder.com/800x600.png?text=Project+Image', true) }}" alt="{{ project.title }} thumbnail">
+                        <img src="{{ project.image | default('https://via.placeholder.com/800x600.png?text=Project+Image', true) }}" alt="{{ project.title }}">
                     </div>
                     <div class="project-content">
                         <h3>{{ project.title }}</h3>
-                        <p>{{ project.description }}</p>
                         <div class="tech-tags">
                             {% for tech in project.tech %}
                                 <span>{{ tech }}</span>
                             {% endfor %}
                         </div>
+                        <p>{{ project.description }}</p>
                         <a href="{{ project.url }}" class="project-link" target="_blank">View Project &rarr;</a>
                     </div>
                 </div>
@@ -67,25 +81,39 @@
         </div>
     </section>
 
-    <section class="page-content" id="experience">
-        <h2>My Experience</h2>
+    <section id="experience">
+        <h2>Experience</h2>
 
         <div class="experience-list">
             {% for job in experiences %}
-                <div class="experience-item" style="--animation-order: {{ loop.index }};">
+                <div class="experience-item">
                     <h3>{{ job.role }}</h3>
-                    <h4>{{ job.company }} <span class="duration">({{ job.duration }})</span></h4>
+                    <h4>{{ job.company }} <span class="duration">&mdash; {{ job.duration }}</span></h4>
                     <p>{{ job.description }}</p>
                 </div>
             {% endfor %}
         </div>
     </section>
+
+    <!-- Quote Section -->
+    {% if quote %}
+    <section class="quote-section">
+        <div class="quote-text">
+            &ldquo;{{ quote.text }}&rdquo;
+        </div>
+        <div class="quote-author">
+            &mdash; {{ quote.author }}
+        </div>
+    </section>
+    {% endif %}
+
 {% endblock %}
 
 
 {% block scripts %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // --- Typed.js Initialization ---
         if (document.getElementById('typed-text')) {
             var options = {
                 strings: [
@@ -104,8 +132,201 @@
                 cursorChar: '_',
                 autoInsertCss: false
             };
-
             var typed = new Typed('#typed-text', options);
+        }
+
+        // --- Generative Organic Tree Animation (Canvas) ---
+        const treeCanvas = document.getElementById('organic-canvas');
+        if (treeCanvas) {
+            const ctx = treeCanvas.getContext('2d');
+            let width, height;
+            
+            function resizeTree() {
+                const parent = treeCanvas.parentElement;
+                width = parent.clientWidth;
+                height = parent.clientHeight;
+                treeCanvas.width = width;
+                treeCanvas.height = height;
+                startTreeAnimation();
+            }
+            // Debounce resize
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(resizeTree, 200);
+            });
+            
+            class Branch {
+                constructor(x, y, len, angle, width) {
+                    this.x = x; this.y = y; this.len = len; this.angle = angle; this.width = width;
+                    this.growLen = 0; this.growSpeed = (len / 40) + 0.5; this.finished = false; this.children = [];
+                }
+                update() {
+                    if (this.growLen < this.len) this.growLen += this.growSpeed;
+                    else {
+                        this.growLen = this.len;
+                        if (!this.finished) {
+                            this.finished = true;
+                            if (this.width > 0.5) {
+                                const spread = 0.5 + Math.random() * 0.4;
+                                const lenMult = 0.7 + Math.random() * 0.2;
+                                this.children.push(new Branch(
+                                    this.x + this.len * Math.sin(this.angle), this.y - this.len * Math.cos(this.angle),
+                                    this.len * lenMult, this.angle - spread, this.width * 0.7
+                                ));
+                                this.children.push(new Branch(
+                                    this.x + this.len * Math.sin(this.angle), this.y - this.len * Math.cos(this.angle),
+                                    this.len * lenMult, this.angle + spread, this.width * 0.7
+                                ));
+                            }
+                        }
+                    }
+                    this.children.forEach(c => c.update());
+                }
+                draw(ctx) {
+                    const endX = this.x + this.growLen * Math.sin(this.angle);
+                    const endY = this.y - this.growLen * Math.cos(this.angle);
+                    ctx.beginPath(); ctx.moveTo(this.x, this.y); ctx.lineTo(endX, endY);
+                    ctx.lineWidth = this.width;
+                    ctx.strokeStyle = 'rgba(196, 98, 67, 0.2)'; 
+                    ctx.stroke();
+                    this.children.forEach(c => c.draw(ctx));
+                }
+            }
+            
+            let root;
+            function startTreeAnimation() {
+                const startX = width * 0.9; 
+                const startY = height * 0.9;
+                root = new Branch(startX, startY, 70, 0.5, 3);
+            }
+            function animateTree() {
+                ctx.clearRect(0, 0, width, height);
+                if (root) { root.update(); root.draw(ctx); }
+                requestAnimationFrame(animateTree);
+            }
+            resizeTree(); animateTree();
+        }
+
+        // --- Sophisticated Black Hole Particle System ---
+        const bhCanvas = document.getElementById('bh-particles');
+        const blackHoleElement = document.getElementById('blackHole');
+        
+        if (bhCanvas && blackHoleElement) {
+            const ctx = bhCanvas.getContext('2d');
+            let w, h;
+            let particles = [];
+            const particleCount = 150; // Dense field
+
+            function resizeBH() {
+                // Canvas should cover the hero visual area to allow particles to come from outside
+                const container = bhCanvas.parentElement;
+                w = container.clientWidth;
+                h = container.clientHeight;
+                bhCanvas.width = w;
+                bhCanvas.height = h;
+            }
+            window.addEventListener('resize', resizeBH);
+            resizeBH();
+
+            class Particle {
+                constructor() {
+                    this.reset(true);
+                }
+
+                reset(initial = false) {
+                    const cx = w / 2;
+                    const cy = h / 2;
+                    
+                    // Start from random angle
+                    this.angle = Math.random() * Math.PI * 2;
+                    
+                    // Distance: start outside the visible area or scattered if initial
+                    if (initial) {
+                        this.dist = 60 + Math.random() * (Math.max(w, h) / 2);
+                    } else {
+                        this.dist = Math.max(w, h) / 2 + Math.random() * 100;
+                    }
+
+                    this.speed = 0.5 + Math.random() * 1.5;
+                    this.size = 1 + Math.random() * 2;
+                    this.alpha = 0;
+                }
+
+                update() {
+                    const cx = w / 2;
+                    const cy = h / 2;
+
+                    // Move towards center
+                    this.dist -= this.speed;
+                    
+                    // Rotate (faster as it gets closer - conservation of angular momentum simulation)
+                    this.angle += 0.002 + (50 / (this.dist + 10)) * 0.005;
+
+                    this.x = cx + Math.cos(this.angle) * this.dist;
+                    this.y = cy + Math.sin(this.angle) * this.dist;
+
+                    // Opacity logic
+                    if (this.dist < 60) {
+                         // Fading out near event horizon
+                         this.alpha -= 0.05;
+                    } else if (this.alpha < 0.8) {
+                         this.alpha += 0.01;
+                    }
+
+                    // Reset if too close or fully invisible near center
+                    if (this.dist < 20 || (this.dist < 60 && this.alpha <= 0)) {
+                        this.reset();
+                    }
+                }
+
+                draw() {
+                    if (this.alpha <= 0) return;
+                    ctx.fillStyle = `rgba(196, 98, 67, ${this.alpha})`;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            function animateBH() {
+                ctx.clearRect(0, 0, w, h);
+                
+                // Maintain particle count
+                while (particles.length < particleCount) {
+                    particles.push(new Particle());
+                }
+
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+
+                requestAnimationFrame(animateBH);
+            }
+
+            // Emergence Animation - Staged for Story-telling
+            setTimeout(() => {
+                blackHoleElement.classList.add('emerged'); // Scales up & fades in
+            }, 300); // Small delay before core emergence
+
+            setTimeout(() => {
+                // Activate accretion disks and photon ring (reveal them)
+                const disksAndRing = document.querySelectorAll('.accretion-disk, .photon-ring');
+                disksAndRing.forEach(el => el.classList.add('active'));
+            }, 2500); // Disks appear after core has grown a bit (adjust based on core emergence duration)
+
+            let bhAnimationStarted = false;
+            function startBHAnimation() {
+                if (!bhAnimationStarted) {
+                    animateBH(); // Starts the particle animation loop
+                    bhAnimationStarted = true;
+                }
+            }
+
+            setTimeout(() => {
+                startBHAnimation(); // Particles start flowing after disks are active
+            }, 4000); // Adjust this delay for when particles should start. Should be after disks are visibly active.
         }
     });
 </script>

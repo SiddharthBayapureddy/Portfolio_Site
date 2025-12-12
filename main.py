@@ -24,6 +24,8 @@ about_me = portfolio_data.get("about_me", {})
 social_media = portfolio_data.get('social_media', [])
 experiences = portfolio_data.get('experiences', [])
 projects = portfolio_data.get('projects', [])
+skills = portfolio_data.get('skills', [])
+quote = portfolio_data.get('quote', {})
 
 @app.context_processor
 def inject_global_data():
@@ -35,7 +37,9 @@ def index():
         "index.html",
         about=about_me,
         projects=projects,
-        experiences=experiences
+        experiences=experiences,
+        skills=skills,
+        quote=quote
     )
 
 @app.route('/contact', strict_slashes=False)

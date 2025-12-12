@@ -1,435 +1,660 @@
 /* ---
-  Polished Minimal Dark (Teal Theme)
+  Anthropic-Inspired Aesthetic (Warm, Minimal, Typographic)
 --- */
 
-/* --- 1. Root Variables --- */
 :root {
-    /* Base Colors - Polished Dark */
-    --bg-color: #0A0A0A; /* Deeper, richer black */
-    --bg-secondary: #101010;
-    --card-bg: #131313;
-    --border-color: #222;
-    --text-primary: #e0e0e0;
-    --text-secondary: #999;
-
-    /* Accent Color - Deep Teal (Not Cyan) */
-    --accent-color: #00bfa5; /* A deep, rich teal */
-    --accent-muted: #5df2d6;
-    --accent-deep: #008c7a;
-    --accent-glow: rgba(0, 191, 165, 0.08); /* More subtle glow */
-
-    /* Font Families */
-    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    --font-mono: 'Source Code Pro', monospace;
-    /* NEW: Robotic font for your logo */
-    --font-logo: 'Orbitron', var(--font-sans);
+    /* Color Palette */
+    --bg-color: #f0eee6; /* New overall background color */
+    --text-primary: #191919; /* Charcoal */
+    --text-secondary: #5e5e5e; /* Dark Grey */
+    --accent-color: #c46243; /* Terracotta/Burnt Orange */
+    --accent-hover: #a34e32;
+    --border-color: #d0cfc9;
+    --card-bg: #ffffff; /* White cards on beige bg */
+    
+    /* Typography */
+    --font-serif: 'Libre Baskerville', serif;
+    --font-sans: 'Inter', sans-serif;
 }
 
-/* --- 2. Keyframe Animations --- */
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+html {
+    scroll-behavior: smooth;
+}
 
-/* REMOVED:
-  - @keyframes floatParticle
-*/
+/* --- Global Reset & Base Styles --- */
+* {
+    box-sizing: border-box;
+}
 
-/* --- 3. Global Styles --- */
-html.dark {
+body {
     background-color: var(--bg-color);
     color: var(--text-primary);
     font-family: var(--font-sans);
     line-height: 1.6;
-    scroll-behavior: smooth; /* For single-page scrolling */
-}
-
-body {
     margin: 0;
     padding: 0;
-    animation: fadeIn 0.6s ease-out;
-    /* position: relative;  <- This was the fix from before */
-    overflow-x: hidden;
-    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* --- 4. NEW: Layered Background Effects --- */
-
-/* NEW: This is the canvas for tsParticles */
-#tsparticles {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  /* CORRECTED: Set to furthest back layer */
-  z-index: -3; 
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    font-weight: 400; /* Regular weight for elegance */
+    color: var(--text-primary);
+    margin-top: 0;
+    line-height: 1.3;
 }
 
-.spotlight {
-    position: fixed; /* Fixed to follow viewport */
-    left: var(--x, 50%);
-    top: var(--y, 50%);
-    width: 600px;
-    height: 600px;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    background: radial-gradient(
-        circle,
-        rgba(255, 255, 255, 0.01) 0%,
-        rgba(0, 191, 165, 0.02) 20%,
-        rgba(10, 10, 10, 0) 45%,
-        rgba(10, 10, 10, 0.98) 80%
-    );
-    /* CORRECTED: In front of particles, behind noise/grid */
-    z-index: -2;
-    pointer-events: none;
-    transition: all 0.1s ease-out; /* Smooths the follow */
+h1 {
+    font-size: 3.5rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
 }
 
-.noise-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEVMaXH///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8GtxmUAAAAG3RSTlNBv/v5/f3g4eHm1NXX2NfY1tXV0dHRyNLKz8vPzaSjMAAAAJNJREFUeNqdzFsKwDAQA0B5/f+nXYNWEtG0JpPFCs6lIWZAt1zJvTggNkbE9fNAgA/Y2fGvWJgP2BnYd8lQOQjBRC01c809eoo0SflO1lR1eQCkGq8f3sFmNfH1TqxTcjxSBt3+B4QrgqAL/0tYASA8/vjl3/8mX5h9cNcASD88t9/8mX8w+sO4AXiPZ8QGHiZPAAAAAElFTkSuQmCC');
-    background-repeat: repeat;
-    opacity: 0.04; /* Very subtle */
-    /* CORRECTED: In front of particles/spotlight */
-    z-index: -1;
-    pointer-events: none;
+h2 {
+    font-size: 2.25rem;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
 }
 
-.grid-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* UPDATED: Whitish color */
-    background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 1) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 1) 1px, transparent 1px);
-    background-size: 50px 50px;
-    opacity: 0.05;
-    /* CORRECTED: In front of particles/spotlight */
-    z-index: -1;
-    pointer-events: none;
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
 }
 
-/* REMOVED:
-  - #particle-container
-  - .particle
-*/
+p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    max-width: 70ch; /* Optimal reading length */
+}
 
-/* --- 5. Global Elements --- */
+a {
+    color: var(--text-primary);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    transition: all 0.2s ease;
+}
+
+a:hover {
+    color: var(--accent-color);
+    border-bottom-color: var(--accent-color);
+}
+
+/* --- Layout --- */
 .container {
-    max-width: 1100px; /* Slightly narrower for a cleaner look */
+    max-width: 1400px; /* Widened to fill page */
     margin: 0 auto;
     padding: 0 2rem;
-    position: relative;
-    z-index: 2;
 }
 
-/* --- 6. Typography --- */
-h1, h2, h3, h4, h5, h6 {
-    color: var(--text-primary);
-    font-weight: 700;
-    line-height: 1.2;
-}
-h1 { font-size: 3rem; }
-h2 { 
-    font-size: 2.25rem; 
-    margin-top: 6rem; /* More spacing between sections */
-    margin-bottom: 2.5rem; 
-    padding-bottom: 0.75rem;
-    border-bottom: 2px solid var(--border-color);
-    position: relative;
-}
-h2::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 80px; /* More subtle */
-    height: 2px;
-    background: var(--accent-color);
-}
-h3 { font-size: 1.4rem; }
-h4 { font-size: 1rem; color: var(--text-secondary); font-weight: 400; }
-p { font-size: 1.05rem; color: var(--text-secondary); line-height: 1.7; }
-a { color: var(--accent-color); text-decoration: none; font-weight: 600; transition: color 0.2s ease; }
-a:hover { color: var(--accent-muted); }
-
-/* --- 7. Navigation & Footer --- */
+/* --- Header --- */
 header {
+    padding: 1.5rem 0; /* Slightly tighter */
+    background-color: var(--bg-color);
     position: sticky;
     top: 0;
     z-index: 100;
-    padding: 1.25rem 0;
-    background-color: rgba(10, 10, 10, 0.75); /* Darker glass */
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border-color);
 }
 
-nav { display: flex; justify-content: space-between; align-items: center; }
+header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem; /* Adds a nice space between the logo and your name */
+    font-family: 'Montserrat', sans-serif; /* New font for readability and uniqueness */
+    font-size: 2.2rem; /* Increased size */
     font-weight: 700;
-    font-size: 1.25rem;
     color: var(--text-primary);
-}
-/* NEW: Style for the span inside the logo */
-.nav-logo span {
-    font-family: var(--font-logo);
-    font-weight: 700;
-    font-size: 1.3rem; /* Make it a bit bigger */
-    letter-spacing: 1px; /* Add some space */
-    color: var(--text-primary);
-    transition: color 0.2s ease;
-}
-.nav-logo-img {
-    width: 32px;  /* Small and clean */
-    height: 32px;
-    border-radius: 50%; /* Makes it a circle */
-    object-fit: cover;  /* Prevents the image from stretching */
-    border: 2px solid var(--border-color); /* Optional: adds a nice border */
-}
-.nav-logo:hover span { 
-    color: var(--accent-color); /* Make the text glow on hover, not the whole block */
-}
-
-nav ul { list-style: none; display: flex; gap: 2rem; margin: 0; padding: 0; }
-nav a { color: var(--text-secondary); font-weight: 500; }
-nav a:hover { color: var(--accent-color); }
-nav a.active { color: var(--accent-color); font-weight: 700; } /* For active scrolling */
-
-footer {
-    text-align: center;
-    margin-top: 6rem;
-    padding: 3rem 0;
-    border-top: 1px solid var(--border-color);
-    color: var(--text-secondary);
-}
-footer p { font-size: 0.9rem; margin: 0; }
-
-/* --- 8. NEW: Hero Section --- */
-.hero-section {
-    min-height: 80vh;
+    border-bottom: none;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 6rem 0;
-}
-.hero-top h1 {
-    font-family: var(--font-mono);
-    font-size: 3rem; 
-    height: 9rem; /* Adjust height for 3 lines */
-    line-height: 1.3;
-    user-select: none;
-    margin-bottom: 2rem;
-}
-.typed-cursor {
-    font-family: var(--font-mono);
-    font-size: 3rem;
-    color: var(--accent-color);
-    opacity: 1;
-    animation: typed-blink 0.7s infinite;
-}
-@keyframes typed-blink {
-    0%, 100% { opacity: 1; } 50% { opacity: 0; }
-}
-
-.hero-bottom-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 4rem;
-    align-items: start;
-}
-.bio { font-size: 1.15rem; color: var(--text-primary); line-height: 1.8; }
-
-.hero-socials h3 {
-    font-size: 1.1rem;
-    color: var(--accent-color);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 0;
-    margin-bottom: 1rem;
-}
-.hero-socials ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1rem; }
-
-.social-link {
-    display: flex;
-    align-items: center;
+    align-items: center; /* Revert to center for better overall balance */
     gap: 1rem;
-    padding: 0.75rem;
-    border-radius: 8px;
+}
+
+.header-profile-img {
+    width: 65px; /* Increased visibility */
+    height: 65px;
+    border-radius: 0; /* Remove circular frame */
+    object-fit: cover;
+    /* Removed border for cleaner look */
+    transition: transform 0.2s;
+    position: relative;
+    top: 10px; /* Bring it down further to align with text */
+}
+
+.nav-logo:hover .header-profile-img {
+    transform: scale(1.05); /* Subtle zoom instead of border color */
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem; /* Increased gap */
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    font-size: 1.15rem; /* Bigger */
+    font-weight: 600; /* More prominent */
+    color: var(--text-primary); /* Darker for readability */
+    border-bottom: none;
+}
+
+.nav-links a:hover {
+    color: var(--text-primary);
+}
+
+/* --- Hero Section --- */
+.hero-section {
+    padding: 10rem 0 8rem; /* Increased padding */
+    min-height: 85vh;
+    display: flex;
+    align-items: center; 
+    position: relative; 
+    overflow: hidden; 
+}
+
+/* New Grid Layout for Hero */
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr; /* Text gets more space */
+    gap: 6rem; /* Bigger gap */
+    align-items: center;
+    position: relative;
+    z-index: 2; 
+    width: 100%;
+}
+
+.hero-text {
+    max-width: 800px; /* Allow text to be wider */
+}
+
+.hero-visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 600px; /* Bigger canvas for bigger animation */
+}
+
+.hero-animation {
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 140%; 
+    height: 140%;
+    z-index: -1; 
+    pointer-events: none; 
+    opacity: 0.6; 
+}
+
+#organic-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* --- Hero Animation (Black Hole System) --- */
+.black-hole-container {
+    position: relative;
+    width: 600px;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#bh-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 15; /* Above background, below/intertwined with black hole */
+    pointer-events: none;
+}
+
+.black-hole-system {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(0.1); /* Start very small */
+    opacity: 0; /* Start invisible */
+    transition: transform 4s cubic-bezier(0.19, 1, 0.22, 1), opacity 3s ease-in; /* Slower, staged emergence */
+    transform-style: preserve-3d;
+}
+
+.black-hole-system.emerged {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.black-hole-core {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background-color: #000;
+    border-radius: 50%;
+    z-index: 20;
+    box-shadow: 
+        0 0 50px #000,
+        0 0 100px rgba(196, 98, 67, 0.6),
+        inset 0 0 30px rgba(0,0,0,0.8); /* Stronger shadows, added inset */
+    /* No rotation needed for a sphere/circle, but keeps context */
+}
+
+.photon-ring {
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+    z-index: 19;
+    filter: blur(2px);
+    opacity: 0; /* Start hidden */
+    transition: opacity 1.5s ease-in;
+}
+
+.photon-ring.active {
+    opacity: 1;
+}
+
+/* Accretion Disks - Chaotic Rings */
+.accretion-disk {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(196, 98, 67, 0.3);
+    box-shadow: 0 0 15px rgba(196, 98, 67, 0.1);
+    transform-style: preserve-3d;
+    opacity: 0; /* Start hidden */
+    transition: opacity 1.5s ease-in;
+}
+
+.accretion-disk.active {
+    opacity: 1;
+}
+
+.disk-1 {
+    width: 250px;
+    height: 250px;
+    border-color: rgba(196, 98, 67, 0.7);
+    border-width: 2px;
+    animation: orbit1 8s linear infinite;
+}
+
+.disk-2 {
+    width: 350px;
+    height: 350px;
+    border: 1px dashed rgba(50, 50, 50, 0.5);
+    animation: orbit2 12s linear infinite;
+}
+
+.disk-3 {
+    width: 480px;
+    height: 480px;
+    border-width: 1px;
+    border-color: rgba(196, 98, 67, 0.2);
+    animation: orbit3 15s linear infinite reverse;
+}
+
+@keyframes orbit1 {
+    0% { transform: rotateX(70deg) rotateY(-10deg) rotateZ(0deg); }
+    100% { transform: rotateX(70deg) rotateY(-10deg) rotateZ(360deg); }
+}
+
+@keyframes orbit2 {
+    0% { transform: rotateX(30deg) rotateY(40deg) rotateZ(0deg); }
+    100% { transform: rotateX(30deg) rotateY(40deg) rotateZ(360deg); }
+}
+
+@keyframes orbit3 {
+    0% { transform: rotateX(80deg) rotateY(10deg) rotateZ(0deg); }
+    100% { transform: rotateX(80deg) rotateY(10deg) rotateZ(360deg); }
+}
+
+.hero-top h1 {
+    font-size: 4.5rem; /* Massive heading */
+    margin-bottom: 2rem;
+    line-height: 1.1;
+    min-height: 3em; /* Fix for layout shift */
+    display: block;
+}
+
+.hero-bio-container {
+    background-color: #e3dacc; /* New background bio color */
+    border-left: 4px solid var(--accent-color);
+    padding: 2rem;
+    border-radius: 0 8px 8px 0;
+    margin-top: 0.5rem; /* Reduced space */
+}
+
+.hero-bio {
+    font-family: 'Libre Baskerville', serif; /* Editorial/Sophisticated look */
+    font-size: 1.3rem; /* Bigger */
+    font-weight: 700; /* Bolder */
+    color: #000000; /* Pure black */
+    line-height: 1.8;
+    margin: 0; /* Container handles margin */
+}
+
+/* Specific override for paragraphs inside bio to ensure black color */
+.hero-bio p {
+    color: #000000 !important;
+}
+
+.hero-connect {
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+}
+
+/* --- Skills Section --- */
+.skills-section {
+    padding: 2rem 0 4rem;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 4rem;
+}
+
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.skill-tag {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    background-color: #e8e7e1; /* Slightly darker than bg */
+    padding: 0.5rem 1.2rem;
+    border-radius: 6px;
+    border: 1px solid transparent;
     transition: all 0.2s ease;
 }
-.social-link:hover {
-    background: var(--card-bg);
-    transform: translateX(5px);
-}
-.social-icon { width: 24px; height: 24px; fill: var(--text-secondary); transition: fill 0.2s ease; }
-.social-link:hover .social-icon { fill: var(--accent-color); }
-.social-link span { font-size: 1rem; font-weight: 500; color: var(--text-secondary); transition: color 0.2s ease; }
-.social-link:hover span { color: var(--text-primary); }
 
-/* --- 9. NEW: Project Cards (with Images) --- */
+.skill-tag:hover {
+    border-color: var(--accent-color);
+    background-color: var(--bg-color);
+    color: var(--accent-color);
+}
+
+/* --- Projects Section --- */
 .project-list {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 2-column layout */
-    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for wider screens */
+    gap: 3rem;
 }
 
 .project-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    opacity: 0;
-    animation: fadeInUp 0.5s ease-out forwards;
-    animation-delay: calc(var(--animation-order) * 100ms);
-    transition: all 0.2s ease; /* More subtle transition */
-    overflow: hidden;
     display: flex;
     flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border-color); /* Added border back for structure */
+    padding: 2rem;
+    border-radius: 8px;
+    background: var(--card-bg);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-card:last-child {
+    border-bottom: 1px solid var(--border-color); /* Reset the previous rule */
 }
 
 .project-card:hover {
-    transform: translateY(-5px); /* More subtle lift */
-    border-color: var(--accent-color);
-    box-shadow: 0 8px 30px var(--accent-glow);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
 .project-image {
-    width: 100%;
-    height: 220px;
+    aspect-ratio: 16/9;
+    border-radius: 4px;
     overflow: hidden;
-    border-bottom: 1px solid var(--border-color);
+    background-color: #f4f4f4;
 }
+
 .project-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: transform 0.4s ease;
+    display: block;
 }
+
 .project-card:hover .project-image img {
-    transform: scale(1.05);
+    transform: scale(1.03);
 }
 
 .project-content {
-    padding: 1.75rem;
     display: flex;
     flex-direction: column;
-    flex-grow: 1; /* Makes card content fill space */
+    justify-content: center;
 }
-.project-card h3 {
-    color: var(--text-primary);
+
+.project-content h3 {
     margin-top: 0;
-    font-size: 1.3rem;
-    margin-bottom: 0.75rem;
+    font-family: var(--font-serif);
+    font-size: 1.75rem;
 }
-.project-card p { font-size: 0.95rem; flex-grow: 1; } /* Pushes tags/link to bottom */
 
-.tech-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0; }
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
 .tech-tags span {
-    background-color: var(--bg-secondary);
+    font-family: var(--font-mono, monospace); /* Or sans */
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
     border: 1px solid var(--border-color);
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--accent-color); /* Single teal accent */
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
 }
 
-.project-link { display: inline-block; margin-top: 1rem; font-size: 0.9rem; font-weight: 600; }
-.project-link:hover { color: var(--accent-muted); }
+.project-link {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid var(--accent-color); /* Assertive link */
+    padding-bottom: 0.2rem;
+}
 
-/* --- 10. Experience List (Timeline) --- */
-.experience-list { display: grid; gap: 2.5rem; }
+.project-link:hover {
+    color: var(--accent-color);
+    border-bottom-color: var(--text-primary);
+}
+
+
+/* --- Experience Section --- */
+.experience-list {
+    border-left: 1px solid var(--border-color);
+    padding-left: 2rem;
+}
 
 .experience-item {
-    border-left: 2px solid var(--border-color);
-    padding-left: 1.5rem;
+    margin-bottom: 3rem;
     position: relative;
-    opacity: 0;
-    animation: fadeInUp 0.5s ease-out forwards;
-    animation-delay: calc(var(--animation-order) * 100ms);
-    transition: all 0.2s ease;
 }
+
 .experience-item::before {
     content: '';
     position: absolute;
-    left: -6px; /* Centered on 2px border */
-    top: 4px;
-    width: 9px;
-    height: 9px;
+    left: -2.35rem; /* Align with border */
+    top: 0.4rem;
+    width: 0.6rem;
+    height: 0.6rem;
+    background-color: var(--bg-color);
+    border: 1px solid var(--text-primary);
     border-radius: 50%;
-    background: var(--bg-secondary);
-    border: 2px solid var(--accent-color);
-    transition: all 0.2s ease;
-}
-.experience-item:hover {
-    border-left-color: var(--accent-color);
-}
-.experience-item:hover::before {
-    background: var(--accent-color);
-    box-shadow: 0 0 15px var(--accent-glow);
 }
 
-.experience-item h3 { margin-top: 0; margin-bottom: 0.25rem; color: var(--text-primary); font-size: 1.3rem; }
-.experience-item h4 { font-size: 1rem; color: var(--text-secondary); font-weight: 500; }
-.duration { font-style: italic; font-size: 0.9rem; color: var(--accent-color); }
-.experience-item p { font-size: 0.95rem; margin-top: 0.75rem; }
-
-/* --- 11. Responsive --- */
-@media (max-width: 900px) {
-    .container { padding: 0 1.5rem; }
-    .hero-bottom-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .project-list { grid-template-columns: 1fr; }
-    .hero-top h1, .typed-cursor { font-size: 2.25rem; }
-    .hero-top h1 { height: 7rem; }
+.experience-item h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.2rem;
 }
 
-@media (max-width: 600px) {
-    nav { flex-direction: column; gap: 1rem; }
-    nav ul { gap: 1.5rem; }
-    .hero-top h1, .typed-cursor { font-size: 1.8rem; }
-    .hero-top h1 { height: 6rem; }
-    h2 { font-size: 1.75rem; }
-    .spotlight { width: 400px; height: 400px; }
+.experience-item h4 {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin: 0 0 1rem 0;
+    font-weight: 500;
 }
 
-/* --- 12. NEW: Contact Page Styles --- */
-/* (You can add these styles if you decide to add the contact page) */
-.contact-content {
-    max-width: 700px; /* Constrain the text width */
-    margin: 0 auto; /* Center the content */
+.duration {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* --- Quote Section --- */
+.quote-section {
     text-align: center;
+    padding: 6rem 0;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.quote-text {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 2rem;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+}
+
+.quote-author {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* --- Footer --- */
+footer {
+    margin-top: 6rem;
+    padding: 3rem 0;
+    border-top: 1px solid var(--border-color);
+}
+
+.footer-content {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    gap: 2rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.footer-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    border-bottom: none;
+}
+
+.footer-links a:hover {
+    color: var(--accent-color);
+}
+
+/* --- Typed Cursor Fix --- */
+.typed-cursor {
+    font-weight: 300;
+    color: var(--accent-color);
+}
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 3rem;
+    }
+    
+    .hero-text {
+        margin: 0 auto;
+    }
+    
+    .hero-visual {
+        order: -1; /* Image on top on mobile */
+    }
+    
+    .profile-img {
+        width: 200px;
+        height: 200px;
+    }
+
+    .project-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .nav-links {
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 2.5rem; }
+    .hero-section { padding-top: 4rem; }
+    
+    .project-card {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .nav-links {
+        gap: 1rem;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+}
+
+/* --- Contact Page --- */
+.contact-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 4rem auto 0;
 }
 
 .cta-button {
     display: inline-block;
-    background-color: var(--accent-color);
-    color: var(--bg-color); /* Dark text on bright button */
-    font-size: 1.1rem;
+    margin-top: 2rem;
+    padding: 1.2rem 3rem;
+    background-color: var(--text-primary);
+    color: var(--bg-color); 
     font-weight: 700;
-    padding: 0.8rem 2rem;
-    border-radius: 50px; /* Pill shape */
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-radius: 4px;
+    border: 2px solid var(--text-primary);
     transition: all 0.2s ease;
-    border: 2px solid var(--accent-color);
 }
 
 .cta-button:hover {
     background-color: transparent;
-    color: var(--accent-color);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px var(--accent-glow);
+    color: var(--text-primary);
+    border-color: var(--text-primary);
 }
