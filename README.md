@@ -9,5 +9,5 @@ To checkout the website, run the following command in the root directory
 python main.py
 ```
 
-### Hot reload is enabled, so any changes in the code will immediately come into effect after a reload of the browser where localhost is running. (PORT set to 5000).
+### Hot reload is enabled, so any changes in the code will immediately come into effect after a reload of the browser where localhost is running. (PORT set to 5000)..
 
