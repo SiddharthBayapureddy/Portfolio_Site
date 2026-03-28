@@ -24,6 +24,7 @@
             </a>
             <ul class="nav-links">
                 <li><a href="{{ url_for('index') }}#about">About</a></li>
+                <li><a href="javascript:void(0)" id="resume-link">Resume</a></li>
                 <li><a href="{{ url_for('index') }}#projects">Projects</a></li>
                 <li><a href="{{ url_for('index') }}#experience">Experience</a></li>
                 <li><a href="{{ url_for('contact') }}">Contact</a></li>
@@ -46,9 +47,97 @@
             </div>
         </footer>
     </div>
+
+    <!-- Resume Modal -->
+    <div id="resume-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Resume Preview</h3>
+                <div class="modal-actions">
+                    <a href="{{ url_for('resume') }}" download class="modal-download-btn">Download PDF</a>
+                    <span class="close-modal">&times;</span>
+                </div>
+            </div>
+            <div class="modal-body" id="pdf-viewer-container">
+                <div id="pdf-viewer"></div>
+            </div>
+        </div>
+    </div>
     
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     
+    <script>
+        // Set worker path for PDF.js
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('resume-modal');
+            const btn = document.getElementById('resume-link');
+            const span = document.getElementsByClassName('close-modal')[0];
+            const pdfViewer = document.getElementById('pdf-viewer');
+            let pdfLoaded = false;
+
+            function loadPDF() {
+                if (pdfLoaded) return;
+                
+                const url = "{{ url_for('resume') }}";
+                
+                pdfjsLib.getDocument(url).promise.then(pdf => {
+                    pdfLoaded = true;
+                    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                        renderPage(pdf, pageNum);
+                    }
+                }).catch(err => {
+                    console.error('Error loading PDF:', err);
+                    pdfViewer.innerHTML = '<p style="padding: 2rem; text-align: center;">Error loading resume. Please try downloading instead.</p>';
+                });
+            }
+
+            function renderPage(pdf, num) {
+                pdf.getPage(num).then(page => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Use a fixed scale for high quality, CSS will handle responsiveness
+                    const viewport = page.getViewport({ scale: 2.0 });
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+                    
+                    const renderContext = {
+                        canvasContext: ctx,
+                        viewport: viewport
+                    };
+                    
+                    pdfViewer.appendChild(canvas);
+                    page.render(renderContext);
+                });
+            }
+
+            if (btn && modal) {
+                btn.onclick = function() {
+                    modal.style.display = "block";
+                    document.body.style.overflow = "hidden";
+                    loadPDF();
+                }
+            }
+
+            if (span && modal) {
+                span.onclick = function() {
+                    modal.style.display = "none";
+                    document.body.style.overflow = "auto";
+                }
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                    document.body.style.overflow = "auto";
+                }
+            }
+        });
+    </script>
+
     {% block scripts %}{% endblock %}
 </body>
 </html>

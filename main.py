@@ -1,9 +1,10 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
 import json
+import os
 
 def load_portfolio_data():
 
-    # Loadinf json data
+    # Loading json data
     try:
         with open("portfolio_data.json", "r") as file:
             data = json.load(file)
@@ -45,6 +46,11 @@ def index():
 @app.route('/contact', strict_slashes=False)
 def contact():
     return render_template("contact.html")
+
+@app.route('/resume')
+def resume():
+    resume_filename = about_me.get('resume_path', 'Resume.pdf')
+    return send_from_directory(os.getcwd(), resume_filename)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
